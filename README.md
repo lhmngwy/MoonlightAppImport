@@ -1,34 +1,47 @@
 # MoonlightAppImport
-A [Playnite](https://github.com/JosefNemec/Playnite) Plugin to import games from a [Sunshine](https://github.com/LizardByte/Sunshine) or [Apollo](https://github.com/ClassicOldSong/Apollo) server to Playnite and open them directly with [Moonlight](https://github.com/moonlight-stream/moonlight-qt).
-With using this plugin there is no need to open the Moonlight UI ever again, except for configuring the stream quality.
 
-For example, you could have a Mini-PC as your client in your living room and open Playnite in Fullscreen Mode at start up.
-Then you could navigate to your favourite game using the controller only and just launch it. If you are done playing, exit the game normally. The Moonlight stream will end and Playnite will be back to focus.
-From here you can choose to open another game or shut down the PC.
-All from Playnite! Offering you the true Console Experience!
+A [Playnite](https://github.com/JosefNemec/Playnite) plugin that imports games from a [Sunshine](https://github.com/LizardByte/Sunshine) or [Apollo](https://github.com/ClassicOldSong/Apollo) host and launches them directly with [Moonlight](https://github.com/moonlight-stream/moonlight-qt).  
+
+Once configured, you never need to open the Moonlight UI again, except to tweak stream-quality settings.
+
+Picture this: A tiny living-room PC boots straight into Playnite’s Fullscreen mode. From the couch, you browse your library with a controller, hit *Play*, and the Moonlight stream starts automatically. When you quit the game, the stream ends and Playnite regains focus, ready for the next title. It’s a console-style experience entirely within Playnite.
+
+---
+
 ## Features
-- Works with both Sunshine and Apollo hosts
-- Import games from Sunshine or Apollo and open them directly in Moonlight. There is no need for using the Moonlight UI anymore!
-- Stores your Sunshine password encrypted
+- Supports **both** Sunshine and Apollo hosts.  
+- Imports host apps and launches them directly in Moonlight. No Moonlight UI required.  
+- Stores your Sunshine password **encrypted** with Windows DPAPI.  
+
+---
+
 ## Installation
-1. Download and install the [MoonlightAppImport_60ea0079-bf4b-417c-a1f3-d5470ec5e96b_X.X.pext](https://github.com/SolemnDucc/MoonlightAppImport/releases)
-2. Go to "Library" > "Configure Integrations" > "Moonlight App Import"
-3. Enter the full path to the Moonlight.exe (e.g. C:\Program Files\Moonlight Game Streaming\Moonlight.exe)
-4. Enter the host address of the Sunshine server (e.g. 192.168.1.69)
-5. Enter the username of the Sunshine server
-6. Enter the password for the Sunshine server (it will encrypted using your Windows User)
-7. Activate the checkbox if you are using Apollo instead of Sunshine
-8. Activate the checkbox if your sunshine server does not have a valid certificate (this is the standard case if you did not change something manually)
-9. Start the update with "Update Game Library" > "Moonlight App Import"
-10. The plugin will request all configured apps from the Sunshine host and add them to Playnite.
-## Best Practices
+
+1. Download the latest `MoonlightAppImport_60ea0079-bf4b-417c-a1f3-d5470ec5e96b_<version>.pext` from the [releases page](https://github.com/SolemnDucc/MoonlightAppImport/releases).  
+2. In Playnite open **Library ▸ Configure Integrations ▸ Moonlight App Import**.  
+3. Set the full path to `Moonlight.exe` (e.g. `C:\Program Files\Moonlight Game Streaming\Moonlight.exe`).  
+4. Enter the Sunshine host address (e.g. `192.168.1.69`).  
+5. Enter your Sunshine username.  
+6. Enter your Sunshine password (stored encrypted).  
+7. Enable **“Use Apollo instead of Sunshine”** if applicable.  
+8. Enable **“Allow self-signed certificate”** if your host uses the default, self-signed TLS cert (the common case).  
+9. Run **Library ▸ Update Game Library ▸ Moonlight App Import**.  
+10. The plugin fetches all configured apps from the host and adds them to Playnite.
+
+---
+
+## Best-practice setup
+
 I suggest the following setup:
 - A Server with [Apollo](https://github.com/ClassicOldSong/Apollo), [Playnite](https://github.com/JosefNemec/Playnite) and the plugins [SunshineAppExport](https://github.com/MichaelMKenny/SunshineAppExport) and [PlayNiteWatcher](https://github.com/Nonary/PlayNiteWatcher).
 - A Client with [Moonlight](https://github.com/moonlight-stream/moonlight-qt), [Playnite](https://github.com/JosefNemec/Playnite) and [MoonlightAppImport](https://github.com/SolemnDucc/MoonlightAppImport/)
 
-Then you would do the following if you want to play a game in Moonlight:
-1. Download and install the game on the server.
-2. Add the game to Playnite.
-3. Add the game to Apollo using the SunshineAppExport script.
-4. On the client: Add the game to Playnite using this plugin.
-5. Start the game thru Playnite on your client.
+Typical workflow:
+
+1. **Install** the game on the server.  
+2. **Add** it to Playnite (server side).  
+3. **Export** it to Apollo via *SunshineAppExport*.  
+4. On the **client**, update the library with *MoonlightAppImport*.  
+5. **Play** the game from Playnite on the client.
+
+Enjoy couch-friendly game streaming without leaving Playnite!
