@@ -2,24 +2,25 @@
 A [Playnite](https://github.com/JosefNemec/Playnite) Plugin to import games from a [Sunshine](https://github.com/LizardByte/Sunshine) or [Apollo](https://github.com/ClassicOldSong/Apollo) server to Playnite and open them directly with [Moonlight](https://github.com/moonlight-stream/moonlight-qt).
 With using this plugin there is no need to open the Moonlight UI ever again, except for configuring the stream quality.
 
-For example, you could have a Mini-PC as your client in your living room and open Playnite in Fullscreen Mode at launch.
+For example, you could have a Mini-PC as your client in your living room and open Playnite in Fullscreen Mode at start up.
 Then you could navigate to your favourite game using the controller only and just launch it. If you are done playing, exit the game normally. The Moonlight stream will end and Playnite will be back to focus.
 From here you can choose to open another game or shut down the PC.
 All from Playnite! Offering you the true Console Experience!
 ## Features
-- Works with Sunshine and Apollo hosts
-- Import games from Sunshine and open them directly in Moonlight. There is no need for using the Moonlight UI anymore!
-- Stores the Sunshine password encrypted
+- Works with both Sunshine and Apollo hosts
+- Import games from Sunshine or Apollo and open them directly in Moonlight. There is no need for using the Moonlight UI anymore!
+- Stores your Sunshine password encrypted
 ## Installation
 1. Download and install the [MoonlightAppImport_60ea0079-bf4b-417c-a1f3-d5470ec5e96b_X.X.pext](https://github.com/SolemnDucc/MoonlightAppImport/releases)
 2. Go to "Library" > "Configure Integrations" > "Moonlight App Import"
-3. Enter the full path to the Moonlight.exe (C:\Program Files\Moonlight Game Streaming\Moonlight.exe)
-4. Enter the host address of the Sunshine server (192.168.1.69)
+3. Enter the full path to the Moonlight.exe (e.g. C:\Program Files\Moonlight Game Streaming\Moonlight.exe)
+4. Enter the host address of the Sunshine server (e.g. 192.168.1.69)
 5. Enter the username of the Sunshine server
-6. Enter the password for the Sunshine server (it is encrypted using your Windows User)
-7. Check if you are using Sunshine or the fork Apollo
-8. Check if you need to skip the certificate validation because the sunshine server does not have a valid certificate
+6. Enter the password for the Sunshine server (it will encrypted using your Windows User)
+7. Activate the checkbox if you are using Apollo instead of Sunshine
+8. Activate the checkbox if your sunshine server does not have a valid certificate (this is the standard case if you did not change something manually)
 9. Start the update with "Update Game Library" > "Moonlight App Import"
+10. The plugin will request all configured apps from the Sunshine host and add them to Playnite.
 ## Best Practices
 I suggest the following setup:
 - A Server with [Apollo](https://github.com/ClassicOldSong/Apollo), [Playnite](https://github.com/JosefNemec/Playnite) and the plugins [SunshineAppExport](https://github.com/MichaelMKenny/SunshineAppExport) and [PlayNiteWatcher](https://github.com/Nonary/PlayNiteWatcher).
