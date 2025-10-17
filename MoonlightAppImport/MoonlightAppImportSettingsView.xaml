@@ -26,5 +26,7 @@
         <CheckBox IsChecked="{Binding Settings.IsApollo}"/>
         <TextBlock Text="Skip certificate validation? You should check this if the Sunshine server does not have a valid certificate."/>
         <CheckBox IsChecked="{Binding Settings.SkipCertificateValidation}"/>
+        <TextBlock Text="Ping the Sunshine server before calling Api?"/>
+        <CheckBox IsChecked="{Binding Settings.PingHost}"/>
     </StackPanel>
 </UserControl>

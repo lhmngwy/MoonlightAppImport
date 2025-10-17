@@ -24,6 +24,7 @@ namespace MoonlightAppImport
         private string _sunshineUsername = string.Empty;
         private bool _isApollo = false;
         private bool _skipCertificateValidation = false;
+        private bool _pingHost = true;
 
         private SecureString _sunshinePassword = new SecureString();
         private string _encryptedSunshinePassword = string.Empty;
@@ -33,6 +34,7 @@ namespace MoonlightAppImport
         public string SunshineUsername { get => _sunshineUsername; set => SetValue(ref _sunshineUsername, value); }
         public bool IsApollo { get => _isApollo; set => SetValue(ref _isApollo, value); }
         public bool SkipCertificateValidation { get => _skipCertificateValidation; set => SetValue(ref _skipCertificateValidation, value); }
+        public bool PingHost { get => _pingHost; set => SetValue(ref _pingHost, value); }
 
         [DontSerialize]
         public string SunshinePassword
