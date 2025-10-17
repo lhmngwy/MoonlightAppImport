@@ -1,12 +1,13 @@
-﻿using System;
+﻿using MoonlightAppImport.Models;
+using Newtonsoft.Json;
+using Playnite.SDK;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Security.Authentication;
 using System.Text;
 using System.Threading.Tasks;
-using MoonlightAppImport.Models;
-using Newtonsoft.Json;
 
 namespace MoonlightAppImport.Http
 {
@@ -16,7 +17,7 @@ namespace MoonlightAppImport.Http
         {
         }
 
-        public async override Task<MoonlightApps> GetGamesAsync()
+        public override async Task<MoonlightApps> GetGamesAsync()
         {
             bool authenticated = await AuthenticateWithCookieAuthAsync();
             if (!authenticated)
@@ -27,6 +28,8 @@ namespace MoonlightAppImport.Http
 
         private async Task<bool> AuthenticateWithCookieAuthAsync()
         {
+            _logger.Info($"Starting to authenticate to Apollo using cookie authentication.\nHost = {_settings.SunshineHost}\nUsername = {_settings.SunshineUsername}\nPassword = A password with {_settings.SunshinePassword.Length} length...");
+
             // Clear any existing authentication headers
             _sunshinePrivateApiClient.DefaultRequestHeaders.Authorization = null;
 
@@ -44,11 +47,15 @@ namespace MoonlightAppImport.Http
 
             if (response.IsSuccessStatusCode)
             {
+                _logger.Info("Successfully authenticated to Apollo using cookie authentication.");
                 // Cookies are automatically handled by the CookieContainer
                 return true;
             }
-
-            return false;
+            else
+            {
+                _logger.Error($"Authentication to Apollo failed! Error {response.StatusCode}: {response.ReasonPhrase}");
+                return false;
+            }
         }
     }
 }

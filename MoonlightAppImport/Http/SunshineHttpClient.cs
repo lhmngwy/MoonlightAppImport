@@ -1,4 +1,7 @@
-﻿using System;
+﻿using MoonlightAppImport.Models;
+using Newtonsoft.Json;
+using Playnite.SDK;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,8 +15,6 @@ using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using MoonlightAppImport.Models;
-using Newtonsoft.Json;
 
 namespace MoonlightAppImport.Http
 {
@@ -23,6 +24,8 @@ namespace MoonlightAppImport.Http
         protected readonly HttpClient _sunshinePrivateApiClient;
         protected readonly HttpClient _sunshinePublicInfoClient;
         protected readonly MoonlightAppImportSettings _settings;
+        protected readonly ILogger _logger = LogManager.GetLogger();
+
         protected bool disposedValue;
         #endregion
 
@@ -44,6 +47,7 @@ namespace MoonlightAppImport.Http
                     return true;
 
                 // If there are errors, throw a custom exception to inform the user
+                _logger.Error($"There was no valid certificate found for the server \"{_settings.SunshineHost}\". Check the \"Skip certificate validation\" in the plugin settings menu!");
                 throw new HttpRequestException($"There was no valid certificate found for the server \"{_settings.SunshineHost}\". Check the \"Skip certificate validation\" in the plugin settings menu!");
             };
 
@@ -64,6 +68,7 @@ namespace MoonlightAppImport.Http
 
         public async Task<string> GetServerHostnameAsync()
         {
+            _logger.Info($"Trying to retrieve the server hostname using {_sunshinePublicInfoClient.BaseAddress}/serverinfo");
             var response = await _sunshinePublicInfoClient.GetAsync("/serverinfo");
             response.EnsureSuccessStatusCode();
             var content = await response.Content.ReadAsStringAsync();
@@ -89,7 +94,7 @@ namespace MoonlightAppImport.Http
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error pinging server: {ex.Message}");
+                _logger.Error(ex, $"Error pinging server: {ex.Message}");
                 return false;
             }
         }
@@ -123,10 +128,14 @@ namespace MoonlightAppImport.Http
             result = File.Exists(_settings.MoonlightPath) && Path.GetFileName(_settings.MoonlightPath).Equals("Moonlight.exe", StringComparison.OrdinalIgnoreCase);
             if (!result)
                 throw new ArgumentException("The moonlight path was invalid! Must point to a \"Moonlight.exe\".");
+
+            _logger.Info($"Settings are valid:\nHost = {_settings.SunshineHost}\nUsername = {_settings.SunshineUsername}\nPassword = A password with {_settings.SunshinePassword.Length} length...\nMoonlight Path = {_settings.MoonlightPath}\nSkip Certificate Validation = {_settings.SkipCertificateValidation}");
         }
 
         private void AuthenticateWithBasicAuth()
         {
+            _logger.Info($"Starting to authenticate to Sunshine using basic authentication.\nHost = {_settings.SunshineHost}\nUsername = {_settings.SunshineUsername}\nPassword = A password with {_settings.SunshinePassword.Length} length...");
+
             // Clear any existing authentication headers
             _sunshinePrivateApiClient.DefaultRequestHeaders.Authorization = null;
 

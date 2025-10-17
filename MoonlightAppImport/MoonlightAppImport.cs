@@ -18,7 +18,7 @@ namespace MoonlightAppImport
     public class MoonlightAppImport : LibraryPlugin
     {
         #region Fields
-        private static readonly ILogger logger = LogManager.GetLogger();
+        private static readonly ILogger _logger = LogManager.GetLogger();
         private static readonly string _iconPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "icon.png");
         private MoonlightAppImportSettingsViewModel settings { get; set; }
         #endregion
@@ -37,26 +37,39 @@ namespace MoonlightAppImport
             {
                 HasSettings = true
             };
+            _logger.Info("MoonlightAppImport initialized!");
         }
         #endregion
 
         #region Methods
         public override IEnumerable<GameMetadata> GetGames(LibraryGetGamesArgs args)
         {
+            _logger.Info("Getting Games from Moonlight...");
             IHttpClient httpClient = null;
             try
             {
                 // Get Games from Sunshine server
                 if (settings.Settings.IsApollo)
+                {
+                    _logger.Info("Apollo server was chosen.");
                     httpClient = new ApolloHttpClient(settings.Settings);
+                }
                 else
+                {
+                    _logger.Info("Sunshine server was chosen.");
                     httpClient = new SunshineHttpClient(settings.Settings);
+                }
 
                 bool online = httpClient.IsServerOnlineAsync().GetAwaiter().GetResult();
                 if (!online)
+                {
+                    _logger.Error("The Sunshine server is not online or the host address is wrong!");
                     throw new TimeoutException("The Sunshine server is not online or the host address is wrong!");
+                }
 
                 string hostname = httpClient.GetServerHostnameAsync().GetAwaiter().GetResult();
+                _logger.Info($"Successfully retrieved the hostname: {hostname}");
+
                 MoonlightApps response = httpClient.GetGamesAsync().GetAwaiter().GetResult();
                 List<GameMetadata> metadata = new List<GameMetadata>();
 
@@ -66,26 +79,36 @@ namespace MoonlightAppImport
                     {
                         Name = app.name,
                         GameId = app.uuid ?? $"{hostname}-{app.name}",
-                        GameActions = new List<GameAction>()
-                        {
-                            new GameAction()
+                        GameActions =
+                            new List<GameAction>()
                             {
-                                Name = app.name,
-                                IsPlayAction = true,
-                                Type = GameActionType.File,
-                                Path = settings.Settings.MoonlightPath,
-                                Arguments = $"stream \"{hostname}\" \"{app.name}\""
-                            }
-                        },
+                                new GameAction()
+                                {
+                                    Name = app.name,
+                                    IsPlayAction = true,
+                                    Type = GameActionType.File,
+                                    Path = settings.Settings.MoonlightPath,
+                                    Arguments = $"stream \"{hostname}\" \"{app.name}\""
+                                }
+                            },
                         InstallDirectory = $"Sunshine server {hostname}",
-                        Description = $"This is an App that was automatically added by the plugin \"Moonlight App Import\" at {DateTime.Now}. It is installed on the Sunshine server \"{hostname}\".",
+                        Description =
+                            $"This is an App that was automatically added by the plugin \"Moonlight App Import\" at {DateTime.Now}. It is installed on the Sunshine server \"{hostname}\".",
                         IsInstalled = true,
                         Icon = new MetadataFile(settings.Settings.MoonlightPath),
-                        BackgroundImage = new MetadataFile(@"https://cdn2.steamgriddb.com/grid/6ca7ef116c25226eb528620dcecbadce.png")
+                        BackgroundImage =
+                            new MetadataFile(
+                                @"https://cdn2.steamgriddb.com/grid/6ca7ef116c25226eb528620dcecbadce.png")
                     });
+                    _logger.Info($"Added App \"{app.name}\" from Sunshine server \"{hostname}\" to the import list.");
                 }
 
                 return metadata;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Getting Games from Moonlight failed!");
+                throw;
             }
             finally
             {
