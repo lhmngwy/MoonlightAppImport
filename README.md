@@ -35,8 +35,8 @@ Picture this: A tiny living-room PC boots straight into Playnite’s Fullscreen 
 ## Best-practice setup
 
 I suggest the following setup:
-- A Server with [Sunshine](https://github.com/LizardByte/Sunshine), [Apollo](https://github.com/ClassicOldSong/Apollo), or [Vibepollo](https://github.com/Nonary/Vibepollo), plus [Playnite](https://github.com/JosefNemec/Playnite) and the plugins [SunshineAppExport](https://github.com/MichaelMKenny/SunshineAppExport) and [PlayNiteWatcher](https://github.com/Nonary/PlayNiteWatcher).
-- A Client with [Moonlight](https://github.com/moonlight-stream/moonlight-qt), [Playnite](https://github.com/JosefNemec/Playnite) and [MoonlightAppImport](https://github.com/SolemnDucc/MoonlightAppImport/)
+- A Server with [Vibepollo](https://github.com/Nonary/Vibepollo), plus [Playnite](https://github.com/JosefNemec/Playnite).
+- A Client with [Moonlight](https://github.com/moonlight-stream/moonlight-qt), [Playnite](https://github.com/JosefNemec/Playnite) and MoonlightAppImport.
 
 Typical workflow:
 
