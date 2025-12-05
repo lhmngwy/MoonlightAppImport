@@ -49,7 +49,12 @@ namespace MoonlightAppImport
             try
             {
                 // Get Games from Sunshine server
-                if (settings.Settings.IsApollo)
+                if (!string.IsNullOrEmpty(settings.Settings.VibepolloApiKey))
+                {
+                    _logger.Info("Vibepollo server was chosen.");
+                    httpClient = new VibepolloHttpClient(settings.Settings);
+                }
+                else if (settings.Settings.IsApollo)
                 {
                     _logger.Info("Apollo server was chosen.");
                     httpClient = new ApolloHttpClient(settings.Settings);
