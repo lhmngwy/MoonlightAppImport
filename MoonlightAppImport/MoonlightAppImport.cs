@@ -100,13 +100,8 @@ namespace MoonlightAppImport
                                 }
                             },
                         InstallDirectory = $"Sunshine server {hostname}",
-                        Description =
-                            $"This is an App that was automatically added by the plugin \"Moonlight App Import\" at {DateTime.Now}. It is installed on the Sunshine server \"{hostname}\".",
                         IsInstalled = true,
-                        Icon = new MetadataFile(settings.Settings.MoonlightPath),
-                        BackgroundImage =
-                            new MetadataFile(
-                                @"https://cdn2.steamgriddb.com/grid/6ca7ef116c25226eb528620dcecbadce.png")
+                        Icon = new MetadataFile(settings.Settings.MoonlightPath)
                     });
                     _logger.Info($"Added App \"{app.name}\" from Sunshine server \"{hostname}\" to the import list.");
                 }
