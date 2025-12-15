@@ -17,7 +17,7 @@ Picture this: A tiny living-room PC boots straight into Playnite’s Fullscreen 
 
 ## Installation
 
-1. Download the latest `MoonlightAppImport_60ea0079-bf4b-417c-a1f3-d5470ec5e96b_<version>.pext` from the [releases page](https://github.com/SolemnDucc/MoonlightAppImport/releases).
+1. Download the latest `MoonlightAppImport_60ea0079-bf4b-417c-a1f3-d5470ec5e96b_<version>.pext` from the releases page.
 2. In Playnite open **Library ▸ Configure Integrations ▸ Moonlight App Import**.
 3. Set the full path to `Moonlight.exe` (e.g. `C:\Program Files\Moonlight Game Streaming\Moonlight.exe`).
 4. Enter the host address (e.g. `192.168.1.69`).
