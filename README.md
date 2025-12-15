@@ -22,9 +22,9 @@ Picture this: A tiny living-room PC boots straight into Playnite’s Fullscreen 
 3. Set the full path to `Moonlight.exe` (e.g. `C:\Program Files\Moonlight Game Streaming\Moonlight.exe`).
 4. Enter the host address (e.g. `192.168.1.69`).
 5. Configure your host:
-    - For **Sunshine**, enter your **Username** and **Password**.
+    - For **Sunshine** and **Apollo**, enter your **Username** and **Password**.
+    - Also, for **Apollo**, enable the **“Use Apollo instead of Sunshine”** checkbox.
     - For **Vibepollo**, enter your **API Key**. The plugin will automatically use Vibepollo if this field is filled.
-    - For **Apollo**, enable the **“Use Apollo instead of Sunshine”** checkbox.
 6. Enable **“Allow self-signed certificate”** if your host uses the default, self-signed TLS cert (the common case).
 7. Enable **"Ping server"** if your host can be pinged and you want to check if it's online before doing an API call. **Note: On Windows 11 hosts ping might be disabled by default. [Either enable it in your firewall](https://superuser.com/questions/1683853/cannot-ping-a-windows-11-machine) or deactivate this checkbox.**
 8. Run **Library ▸ Update Game Library ▸ Moonlight App Import**.
@@ -42,7 +42,7 @@ Typical workflow:
 
 1. **Install** the game on the server.
 2. **Add** it to Playnite (server side).
-3. **Export** it to your host via *SunshineAppExport*.
+3. **Export** it to your host via *Vibepollo*.
 4. On the **client**, update the library with *MoonlightAppImport*.
 5. **Play** the game from Playnite on the client.
 
